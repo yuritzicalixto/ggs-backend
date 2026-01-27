@@ -13,9 +13,11 @@ Route::get('/', function () {
 Route::group(['prefix' => 'sitio'], function (){
 
     Route::get( '/index', [App\Http\Controllers\FrontEndController::class, 'index'])->name('sitio.index');
-    // Route::get( '/register', [App\Http\Controllers\FrontEndController::class, 'register'])->name('register');
-    // Route::get( '/preguntas', [App\Http\Controllers\FrontEndController::class, 'preguntas'])->name('sitio.preguntas');
-    // Route::get( '/login', [App\Http\Controllers\FrontEndController::class, 'login'])->name('login');
+    Route::get( '/galeria', [App\Http\Controllers\FrontEndController::class, 'galeria'])->name('sitio.galeria');
+    Route::get( '/nosotros', [App\Http\Controllers\FrontEndController::class, 'nosotros'])->name('sitio.nosotros');
+    Route::get( '/productos', [App\Http\Controllers\FrontEndController::class, 'productos'])->name('sitio.productos');
+    Route::get( '/servicios', [App\Http\Controllers\FrontEndController::class, 'servicios'])->name('sitio.servicios');
+
 });
 
 
