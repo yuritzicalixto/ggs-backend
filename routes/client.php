@@ -8,25 +8,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('admin.dashboard');
-})->name('dashboard');
+})->middleware('can:access_dashboard')
+->name('dashboard');
 
 
 
 // CITAS
-Route::prefix('citas')->name('appointments.')->group(function () {
+Route::prefix('citas')->middleware('can:client.appointments.create')->name('appointments.')->group(function () {
     Route::get('/', [AppointmentController::class, 'index'])->name('index');
 
 });
 
 
 // CARRITO
-Route::prefix('carrito')->name('cart.')->group(function () {
+Route::prefix('carrito')->middleware('can:client.cart.use')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
 
 });
 
 
 // APARTADOS
-Route::prefix('apartados')->name('reservations.')->group(function () {
+Route::prefix('apartados')->middleware('can:client.reservations.view')->name('reservations.')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('index');
 });

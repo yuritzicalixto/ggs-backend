@@ -7,14 +7,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('admin.dashboard');
-})->name('dashboard');
+})->middleware('can:access_dashboard')
+->name('dashboard');
 
 
 // MIS CITAS
 Route::resource('appointment', AppointmentController::class);
-Route::get('/mis-citas', [AppointmentController::class, 'index'])->name('appointments.index');
+Route::get('/mis-citas', [AppointmentController::class, 'index'])
+->middleware('can:stylist.appointments.view')
+->name('appointments.index');
 
 
 // MIS CLIENTES
 Route::resource('client', AppointmentController::class);
-Route::get('/mis-clientes', [ClientController::class, 'index'])->name('clients.index');
+Route::get('/mis-clientes', [ClientController::class, 'index'])
+->middleware('can:stylist.clients.view')
+->name('clients.index');

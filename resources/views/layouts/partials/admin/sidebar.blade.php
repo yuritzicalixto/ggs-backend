@@ -5,75 +5,78 @@
         'icon' => 'fa-solid fa-gauge',
         'name' => 'Dashboard',
         'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'active' => request()->routeIs('admin.dashboard'),
+        'can' => ['access_dashboard']
     ],
-    [
-        'icon' => 'fa-solid fa-calendar-check',
-        'name' => 'Citas',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-users',
-        'name' => 'Usuarios',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-shop',
-        'name' => 'Servicios',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-cubes-stacked',
-        'name' => 'Productos',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-users-gear',
-        'name' => 'Estilistas',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-cart-flatbed',
-        'name' => 'Apartados',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-bell',
-        'name' => 'Notificaciones',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-percent',
-        'name' => 'Promociones',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
-    [
-        'icon' => 'fa-solid fa-folder-tree',
-        'name' => 'Reportes (P.BI)',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
+    // [
+    //     'icon' => 'fa-solid fa-calendar-check',
+    //     'name' => 'Citas',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-users',
+    //     'name' => 'Usuarios',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-shop',
+    //     'name' => 'Servicios',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-cubes-stacked',
+    //     'name' => 'Productos',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-users-gear',
+    //     'name' => 'Estilistas',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-cart-flatbed',
+    //     'name' => 'Apartados',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-bell',
+    //     'name' => 'Notificaciones',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-percent',
+    //     'name' => 'Promociones',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
+    // [
+    //     'icon' => 'fa-solid fa-folder-tree',
+    //     'name' => 'Reportes (P.BI)',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
 
     // ESTILISTA
     [
         'icon' => 'fa-solid fa-image-portrait',
         'name' => 'Mis Citas',
         'route' => route ('stylist.appointments.index'),
-        'active' => request()->routeIs('stylist.appointments.*')
+        'active' => request()->routeIs('stylist.appointments.*'),
+        'can' => ['stylist.appointments.view']
     ],
     [
         'icon' => 'fa-solid fa-people-group',
         'name' => 'Mis Clientes',
         'route' => route ('stylist.clients.index'),
-        'active' => request()->routeIs('stylist.clients.*')
+        'active' => request()->routeIs('stylist.clients.*'),
+        'can' => ['stylist.clients.view']
     ],
 
     // CLIENTE
@@ -81,7 +84,8 @@
         'icon' => 'fa-solid fa-address-book',
         'name' => 'Agendar Cita',
         'route' => route ('client.appointments.index'),
-        'active' => request()->routeIs('client.appointments.*')
+        'active' => request()->routeIs('client.appointments.*'),
+        'can' => ['client.appointments.create']
     ],
     // [
     //     'icon' => 'fa-solid fa-calendar-days',
@@ -93,13 +97,15 @@
         'icon' => 'fa-solid fa-store',
         'name' => 'Mis Apartados',
         'route' => route ('client.reservations.index'),
-        'active' => request()->routeIs('client.reservations.*')
+        'active' => request()->routeIs('client.reservations.*'),
+        'can' => ['client.reservations.view']
     ],
     [
         'icon' => 'fa-solid fa-cart-shopping',
         'name' => 'Carrito',
         'route' => route ('client.cart.index'),
-        'active' => request()->routeIs('client.cart.*')
+        'active' => request()->routeIs('client.cart.*'),
+        'can' => ['client.cart.use']
     ],
 ];
 @endphp

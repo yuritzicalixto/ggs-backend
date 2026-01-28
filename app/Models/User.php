@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-// use Spatie\Permission\Traits\HasRoles; // ← Agregar este import
+use Spatie\Permission\Traits\HasRoles; // ← Spatie
 
 class User extends Authenticatable
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    // use HasRoles; // ← Agregar este trait para Spatie
+    use HasRoles; // ← Spatie
 
     protected $fillable = [
         'name',
