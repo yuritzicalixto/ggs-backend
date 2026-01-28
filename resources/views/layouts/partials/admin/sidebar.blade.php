@@ -66,40 +66,40 @@
     [
         'icon' => 'fa-solid fa-image-portrait',
         'name' => 'Mis Citas',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'route' => route ('stylist.appointments.index'),
+        'active' => request()->routeIs('stylist.appointments.*')
     ],
     [
         'icon' => 'fa-solid fa-people-group',
-        'name' => 'Clientes',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'name' => 'Mis Clientes',
+        'route' => route ('stylist.clients.index'),
+        'active' => request()->routeIs('stylist.clients.*')
     ],
 
     // CLIENTE
     [
         'icon' => 'fa-solid fa-address-book',
         'name' => 'Agendar Cita',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'route' => route ('client.appointments.index'),
+        'active' => request()->routeIs('client.appointments.*')
     ],
-    [
-        'icon' => 'fa-solid fa-calendar-days',
-        'name' => 'Mis Citas',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
-    ],
+    // [
+    //     'icon' => 'fa-solid fa-calendar-days',
+    //     'name' => 'Mis Citas',
+    //     'route' => route ('admin.dashboard'),
+    //     'active' => request()->routeIs('admin.dashboard')
+    // ],
     [
         'icon' => 'fa-solid fa-store',
         'name' => 'Mis Apartados',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'route' => route ('client.reservations.index'),
+        'active' => request()->routeIs('client.reservations.*')
     ],
     [
         'icon' => 'fa-solid fa-cart-shopping',
         'name' => 'Carrito',
-        'route' => route ('admin.dashboard'),
-        'active' => request()->routeIs('admin.dashboard')
+        'route' => route ('client.cart.index'),
+        'active' => request()->routeIs('client.cart.*')
     ],
 ];
 @endphp

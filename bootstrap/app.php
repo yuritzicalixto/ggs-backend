@@ -19,6 +19,19 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('admin')
                 ->name('admin.')
                 ->group(base_path('routes/admin.php'));
+
+
+        Route::middleware('web', 'auth')
+            //Agregar prefijos para acceder a admin
+                ->prefix('stylist')
+                ->name('stylist.')
+                ->group(base_path('routes/stylist.php'));
+
+        Route::middleware('web', 'auth')
+            //Agregar prefijos para acceder a admin
+                ->prefix('client')
+                ->name('client.')
+                ->group(base_path('routes/client.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
