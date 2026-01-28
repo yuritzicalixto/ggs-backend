@@ -1,12 +1,106 @@
 @php
     $links= [
+        // ADMIN
     [
         'icon' => 'fa-solid fa-gauge',
         'name' => 'Dashboard',
         'route' => route ('admin.dashboard'),
         'active' => request()->routeIs('admin.dashboard')
     ],
+    [
+        'icon' => 'fa-solid fa-calendar-check',
+        'name' => 'Citas',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-users',
+        'name' => 'Usuarios',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-shop',
+        'name' => 'Servicios',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-cubes-stacked',
+        'name' => 'Productos',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-users-gear',
+        'name' => 'Estilistas',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-cart-flatbed',
+        'name' => 'Apartados',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-bell',
+        'name' => 'Notificaciones',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-percent',
+        'name' => 'Promociones',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-folder-tree',
+        'name' => 'Reportes (P.BI)',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
 
+    // ESTILISTA
+    [
+        'icon' => 'fa-solid fa-image-portrait',
+        'name' => 'Mis Citas',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-people-group',
+        'name' => 'Clientes',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+
+    // CLIENTE
+    [
+        'icon' => 'fa-solid fa-address-book',
+        'name' => 'Agendar Cita',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-calendar-days',
+        'name' => 'Mis Citas',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-store',
+        'name' => 'Mis Apartados',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
+    [
+        'icon' => 'fa-solid fa-cart-shopping',
+        'name' => 'Carrito',
+        'route' => route ('admin.dashboard'),
+        'active' => request()->routeIs('admin.dashboard')
+    ],
 ];
 @endphp
 
