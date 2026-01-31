@@ -24,25 +24,30 @@ class DatabaseSeeder extends Seeder
 
         // Usuarios de prueba
         //Admin
-        User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Calixto',
-            'email' => 'calixtoyuallix@gmail.com',
+            'email' => 'calixtoyualix@gmail.com',
+            'phone' => '2712432108',
             'password' => bcrypt('12345678')
-        ])->assignRole('admin');
+        ]);
+        $admin->syncRoles(['admin']);
 
         // Stylist de prueba
-        User::factory()->create([
-            'name' => 'Estilista',
+        $stylist = User::factory()->create([
+            'name' => 'Estilista Demo',
             'email' => 'stylist@gmail.com',
+            'phone' => '2712432108',
             'password' => bcrypt('12345678')
-        ])->assignRole('stylist');
+        ]);
+        $stylist->syncRoles(['stylist']);
 
         // Client de prueba
         User::factory()->create([
-            'name' => 'Cliente',
+            'name' => 'Cliente Demo',
             'email' => 'client@gmail.com',
+            'phone' => '2711000258',
             'password' => bcrypt('12345678')
-        ])->assignRole('client');
+        ]);
 
 
         // $this->call([
