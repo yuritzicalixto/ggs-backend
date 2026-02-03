@@ -14,12 +14,13 @@
     //     'route' => route ('admin.dashboard'),
     //     'active' => request()->routeIs('admin.dashboard')
     // ],
-    // [
-    //     'icon' => 'fa-solid fa-users',
-    //     'name' => 'Usuarios',
-    //     'route' => route ('admin.dashboard'),
-    //     'active' => request()->routeIs('admin.dashboard')
-    // ],
+    [
+        'icon' => 'fa-solid fa-users',
+        'name' => 'Usuarios',
+        'route' => route ('admin.users.index'),
+        'active' => request()->routeIs('admin.users.*'),
+        'can' => ['users.manage']
+    ],
     // [
     //     'icon' => 'fa-solid fa-shop',
     //     'name' => 'Servicios',

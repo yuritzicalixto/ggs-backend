@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,3 +12,5 @@ Route::get('/', function () {
 // Route::get('/admin', function () {
 //     return 'Hola desde el administrador';
 // })->name('admin.dashboard');
+
+Route::resource('users', UserController::class);
