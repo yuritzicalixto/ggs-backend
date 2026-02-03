@@ -67,6 +67,24 @@
             <x-input type="password" name="password_confirmation" required class="w-full"/>
         </div>
 
+        {{--Roles--}}
+            <div class="mb-4">
+                <x-label class="mb-1">
+                    Roles
+                </x-label>
+
+                <ul>
+                    @foreach ($roles as $role)
+                        <li>
+                            <label>
+                                <x-checkbox name="roles[]" value="{{ $role->id }}" :checked="in_array($role-> id, old('roles', []))"/>
+                                {{ $role->name }}
+                            </label>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
         {{-- Enviar datos del formulario --}}
         <div class="flex justify-end">
             <x-button>
