@@ -15,6 +15,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        @stack('css')
         {{-- FONTAWESOME --}}
         <script src="https://kit.fontawesome.com/5554864cfa.js" crossorigin="anonymous"></script>
 
@@ -70,5 +71,20 @@
         {{-- END PLANTILLA --}}
 
         @livewireScripts
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Livewire.on('swal', data=> {
+                    Swal.fire(data[0]);
+                });
+            </script>
+
+            @if (session('swal'))
+                <script>
+                    Swal.fire(@json(session('swal')));
+                </script>
+    @endif
+
+    @stack('js')
     </body>
 </html>

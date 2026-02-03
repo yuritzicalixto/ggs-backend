@@ -73,6 +73,34 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        //Reglas de validación
+        //Estos valores validados se recuperan en un array
+        $data= $request->validate([
+            'name'=> 'required',
+            'email'=> 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|string|regex:/^[0-9]{10,15}$/',
+            'password'=> 'nullable|min:6|confirmed',
+
+        ]);
+
+        $user-> name = $data['name'];
+        $user-> email = $data['email'];
+        $user -> phone = $data['phone'];
+
+        if($data['password']) {
+            $user->password = bcrypt($data['password']);
+        }
+        $user->save();
+
+
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Usuario actualizado',
+            'text' => 'El usuario se ha actualizado correctamente.',
+        ]);
+
+        return redirect()->route('admin.users.edit', $user);
     }
 
     /**
@@ -81,5 +109,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        //Eliminar al usuario
+        $user->delete();
+
+        session()->flash('swal', [
+            'icon'=> 'success',
+            'title'=> 'Usuario eliminado',
+            'text'=> 'El usuario se ha eliminado correctamente',
+        ]);
+
+        return redirect()->route('admin.users.index');
     }
 }
