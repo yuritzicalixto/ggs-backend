@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -132,7 +133,15 @@ class FrontEndController extends Controller
     // PRODUCTOS
 
     function servicios(){
-        return view('sitio.pages.servicios');//busca la vista que va a utilizar
+        // Obtener solo servicios activos, ordenados por nombre
+        // y agruparlos por el campo 'category'
+        $servicesByCategory = Service::active()
+            ->orderBy('name', 'asc')
+            ->get()
+            ->groupBy('category');
+
+            // colección agrupada a la vista
+        return view('sitio.pages.servicios', compact('servicesByCategory'));
     }
 
     function register(){

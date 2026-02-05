@@ -5,55 +5,46 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // Para eliminación lógica
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Service extends Model
 {
     use HasFactory;
-    use SoftDeletes; // Permite "eliminar" sin borrar de la BD
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'slug',
+        'category',       // NUEVO — Categoría para agrupar en el frontend
         'description',
-        'duration',    // En minutos
+        'features',        // NUEVO — Características separadas por |
+        'duration',
         'price',
         'image',
+        'tag',             // NUEVO — Badge/etiqueta (ej: "Popular", "Signature")
+        'is_highlighted',  // NUEVO — Si tiene borde dorado (paquetes especiales)
         'status',
     ];
 
-    /**
-     * Casting de atributos.
-     * Laravel automáticamente convierte estos campos al tipo especificado.
-     */
     protected $casts = [
-        'price' => 'decimal:2',    // Siempre con 2 decimales
-        'duration' => 'integer',    // Siempre entero
+        'price' => 'decimal:2',
+        'duration' => 'integer',
+        'is_highlighted' => 'boolean',
     ];
 
     // =====================================================
     // RELACIONES
     // =====================================================
 
-    /**
-     * Relación N:N con Stylist
-     * Un servicio puede ser realizado por MUCHOS estilistas.
-     *
-     * La tabla pivote 'stylist_service' conecta ambas tablas.
-     * withTimestamps() guarda created_at/updated_at en la pivote.
-     */
     public function stylists(): BelongsToMany
     {
         return $this->belongsToMany(Stylist::class)
                     ->withTimestamps();
     }
 
-    /**
-     * Relación 1:N con Appointment
-     * Un servicio puede estar en MUCHAS citas.
-     */
     public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class);
@@ -63,24 +54,18 @@ class Service extends Model
     // SCOPES
     // =====================================================
 
-    /**
-     * Solo servicios activos.
-     */
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
     }
 
     // =====================================================
-    // ACCESSORS (Atributos calculados)
+    // ACCESSORS
     // =====================================================
 
     /**
      * Devuelve la duración en formato legible.
-     *
-     * Ejemplo: 90 minutos → "1h 30min"
-     *
-     * Uso: $service->duration_formatted
+     * Ejemplo: 90 → "1h 30min"
      */
     public function getDurationFormattedAttribute(): string
     {
@@ -96,12 +81,41 @@ class Service extends Model
     }
 
     /**
-     * Devuelve el precio formateado como moneda.
-     *
-     * Uso: $service->price_formatted → "$150.00"
+     * Precio formateado como moneda.
+     * Ejemplo: 150.00 → "$150.00"
      */
     public function getPriceFormattedAttribute(): string
     {
         return '$' . number_format($this->price, 2);
+    }
+
+    /**
+     * Convierte el campo features (string con |) en un array.
+     * Ejemplo: "Análisis profesional|Propuesta personalizada" → ['Análisis profesional', 'Propuesta personalizada']
+     */
+    public function getFeaturesArrayAttribute(): array
+    {
+        if (empty($this->features)) {
+            return [];
+        }
+        return array_map('trim', explode('|', $this->features));
+    }
+
+    /**
+     * URL de la imagen del servicio.
+     * Si no tiene imagen, devuelve un placeholder.
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->image) {
+            // Si empieza con http, es una URL externa
+            if (Str::startsWith($this->image, ['http://', 'https://'])) {
+                return $this->image;
+            }
+            // Si no, es una imagen local en storage
+            return asset('storage/' . $this->image);
+        }
+        // Placeholder si no hay imagen
+        return 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80';
     }
 }

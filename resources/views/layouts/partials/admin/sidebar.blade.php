@@ -21,12 +21,13 @@
         'active' => request()->routeIs('admin.users.*'),
         'can' => ['users.manage']
     ],
-    // [
-    //     'icon' => 'fa-solid fa-shop',
-    //     'name' => 'Servicios',
-    //     'route' => route ('admin.dashboard'),
-    //     'active' => request()->routeIs('admin.dashboard')
-    // ],
+    [
+        'icon' => 'fa-solid fa-shop',
+        'name' => 'Servicios',
+        'route' => route ('admin.services.index'),
+        'active' => request()->routeIs('admin.services.*'),
+        'can' => ['services.manage']
+    ],
     [
         'icon' => 'fa-solid fa-cubes-stacked',
         'name' => 'Productos',
