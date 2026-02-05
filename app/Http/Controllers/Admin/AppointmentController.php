@@ -14,6 +14,7 @@ class AppointmentController extends Controller
     public function index()
     {
         //
+        // return view('client.appointments.index');
     }
 
     /**
@@ -22,6 +23,7 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+        // return view('client.appointments.create');
     }
 
     /**

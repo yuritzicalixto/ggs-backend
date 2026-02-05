@@ -14,10 +14,9 @@ Route::get('/', function () {
 
 
 // CITAS
-Route::prefix('citas')->middleware('can:client.appointments.create')->name('appointments.')->group(function () {
-    Route::get('/', [AppointmentController::class, 'index'])->name('index');
+Route::resource('appointments', App\Http\Controllers\Client\AppointmentController::class)
+->middleware('can:client.appointments.create');
 
-});
 
 
 // CARRITO

@@ -23,6 +23,7 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+        return view('client.appointments.create');
     }
 
     /**

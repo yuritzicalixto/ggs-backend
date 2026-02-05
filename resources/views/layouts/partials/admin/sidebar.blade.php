@@ -27,12 +27,13 @@
     //     'route' => route ('admin.dashboard'),
     //     'active' => request()->routeIs('admin.dashboard')
     // ],
-    // [
-    //     'icon' => 'fa-solid fa-cubes-stacked',
-    //     'name' => 'Productos',
-    //     'route' => route ('admin.dashboard'),
-    //     'active' => request()->routeIs('admin.dashboard')
-    // ],
+    [
+        'icon' => 'fa-solid fa-cubes-stacked',
+        'name' => 'Productos',
+        'route' => route ('admin.products.index'),
+        'active' => request()->routeIs('admin.products.*'),
+        'can' => ['products.manage'] //
+    ],
     // [
     //     'icon' => 'fa-solid fa-users-gear',
     //     'name' => 'Estilistas',

@@ -4,7 +4,7 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name'=> 'Agendar Cita',
+        'name'=> 'Citas',
     ],
 ]">
 
@@ -12,7 +12,7 @@
 <!-- Botón Agendar -->
 <div class="mb-6">
   <a
-    href="#"
+    href="{{ route('client.appointments.create') }}"
     class="inline-flex items-center px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition shadow-lg hover:shadow-xl"
   >
     <i class="fa-solid fa-calendar-plus mr-2"></i>

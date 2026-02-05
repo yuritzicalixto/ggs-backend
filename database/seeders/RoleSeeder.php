@@ -30,7 +30,7 @@ class RoleSeeder extends Seeder
             'reservations.manage',
             'notifications.manage',
             'promotions.manage',
-            'reports.view',
+            'reports.manage',
             'roles.manage',
             'permissions.manage',
         ]);
@@ -57,6 +57,6 @@ class RoleSeeder extends Seeder
         //     'admin'
         //     ]);
 
-        
+
     }
 }
