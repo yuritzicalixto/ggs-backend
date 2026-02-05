@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -32,104 +33,137 @@ class Product extends Model
     ];
 
     // =====================================================
-    // RELACIONES
+    // BOOT (Auto-generación de slug único)
     // =====================================================
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            if (empty($product->slug)) {
+                $product->slug = self::generateUniqueSlug($product->name);
+            }
+        });
+
+        static::updating(function ($product) {
+            if ($product->isDirty('name') && !$product->isDirty('slug')) {
+                $product->slug = self::generateUniqueSlug($product->name, $product->id);
+            }
+        });
+    }
+
     /**
-     * Relación inversa N:1 con Category
-     * Un producto PERTENECE A una categoría.
+     * Genera un slug único para el producto.
      */
+    private static function generateUniqueSlug(string $name, ?int $excludeId = null): string
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $count = 1;
+
+        $query = self::withTrashed()->where('slug', $slug);
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        while ($query->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+            $query = self::withTrashed()->where('slug', $slug);
+            if ($excludeId) {
+                $query->where('id', '!=', $excludeId);
+            }
+        }
+
+        return $slug;
+    }
+
+    // =====================================================
+    // RELACIONES (las tuyas están perfectas)
+    // =====================================================
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * Relación 1:N con ReservationItem
-     * Un producto puede estar en MUCHOS items de apartados.
-     */
     public function reservationItems(): HasMany
     {
         return $this->hasMany(ReservationItem::class);
     }
 
-    /**
-     * Relación 1:N con CartItem
-     * Un producto puede estar en MUCHOS carritos.
-     */
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
     }
 
     // =====================================================
-    // SCOPES
+    // SCOPES (agregamos scopeActive)
     // =====================================================
 
     /**
-     * Productos disponibles (activos y con stock).
+     * Solo productos activos.
      */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
     public function scopeAvailable($query)
     {
         return $query->where('status', 'active')
                      ->where('stock', '>', 0);
     }
 
-    /**
-     * Productos con stock bajo (menos de 5 unidades).
-     */
     public function scopeLowStock($query)
     {
         return $query->where('stock', '<', 5)
                      ->where('stock', '>', 0);
     }
 
-    /**
-     * Productos agotados.
-     */
     public function scopeOutOfStock($query)
     {
         return $query->where('stock', '<=', 0);
     }
 
     // =====================================================
-    // ACCESSORS
+    // ACCESSORS (los tuyos + image_url)
     // =====================================================
 
-    /**
-     * ¿El producto está disponible para apartar?
-     */
     public function getIsAvailableAttribute(): bool
     {
         return $this->status === 'active' && $this->stock > 0;
     }
 
-    /**
-     * ¿Tiene stock bajo? (Alerta del dashboard admin)
-     */
     public function getIsLowStockAttribute(): bool
     {
         return $this->stock > 0 && $this->stock < 5;
     }
 
     /**
-     * Precio formateado.
+     * Precio formateado con símbolo.
      */
     public function getPriceFormattedAttribute(): string
     {
         return '$' . number_format($this->price, 2);
     }
 
+    /**
+     * URL completa de la imagen o imagen por defecto.
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->image && file_exists(storage_path('app/public/' . $this->image))) {
+            return asset('storage/' . $this->image);
+        }
+        return asset('images/default-product.jpg');
+    }
+
     // =====================================================
-    // MÉTODOS DE NEGOCIO
+    // MÉTODOS DE NEGOCIO (los tuyos están perfectos)
     // =====================================================
 
-    /**
-     * Reduce el stock del producto.
-     *
-     * @param int $quantity Cantidad a reducir
-     * @return bool True si se pudo reducir, false si no hay suficiente stock
-     */
     public function decreaseStock(int $quantity): bool
     {
         if ($this->stock < $quantity) {
@@ -140,10 +174,6 @@ class Product extends Model
         return true;
     }
 
-    /**
-     * Aumenta el stock del producto.
-     * Útil cuando se cancela un apartado y hay que devolver stock.
-     */
     public function increaseStock(int $quantity): void
     {
         $this->increment('stock', $quantity);

@@ -1,20 +1,17 @@
 <?php
-// app/Models/Category.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
+
 
 class Category extends Model
 {
     use HasFactory;
 
-    /**
-     * Campos que se pueden asignar masivamente.
-     * Esto protege contra vulnerabilidades de asignación masiva.
-     */
     protected $fillable = [
         'name',
         'slug',
@@ -24,32 +21,56 @@ class Category extends Model
     ];
 
     // =====================================================
+    // BOOT (Auto-generación de slug)
+    // =====================================================
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($category) {
+            if (empty($category->slug)) {
+                $category->slug = Str::slug($category->name);
+            }
+        });
+
+        static::updating(function ($category) {
+            if ($category->isDirty('name') && !$category->isDirty('slug')) {
+                $category->slug = Str::slug($category->name);
+            }
+        });
+    }
+
+    // =====================================================
     // RELACIONES
     // =====================================================
 
-    /**
-     * Relación 1:N con Product
-     * Una categoría tiene MUCHOS productos.
-     *
-     * Ejemplo de uso:
-     * $category->products; // Obtiene todos los productos de esta categoría
-     */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
     // =====================================================
-    // SCOPES (Consultas reutilizables)
+    // SCOPES
     // =====================================================
 
-    /**
-     * Scope para filtrar solo categorías activas.
-     *
-     * Uso: Category::active()->get();
-     */
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
+    }
+
+    // =====================================================
+    // ACCESSORS
+    // =====================================================
+
+    /**
+     * URL completa de la imagen o imagen por defecto.
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->image && file_exists(storage_path('app/public/' . $this->image))) {
+            return asset('storage/' . $this->image);
+        }
+        return asset('images/default-category.jpg');
     }
 }
