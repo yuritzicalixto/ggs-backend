@@ -1,7 +1,6 @@
 @extends('sitio.layout.principal')
 @section('contenido')
 
-
     <!-- Page Header -->
     <section class="page-header">
       <div class="container">
@@ -20,7 +19,7 @@
         {{-- Verificar si hay productos --}}
         @if($categories->isEmpty())
             {{-- Mensaje cuando no hay productos --}}
-            <div class="empty-products" style="text-align: center; padding: 60px 20px;">
+            <div class="empty-products text-center" style="padding: 60px 20px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 20px; opacity: 0.3;">
                     <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                 </svg>
@@ -97,11 +96,9 @@
 
                                         {{-- Badge dinámico --}}
                                         @if($product->stock <= 0)
-                                            <span class="product-card__badge" style="background: #dc2626;">Agotado</span>
+                                            <span class="product-card__badge product-card__badge--soldout">Agotado</span>
                                         @elseif($product->stock <= 5)
-                                            <span class="product-card__badge" style="background: #f59e0b;">¡Últimos!</span>
-                                        @elseif($index === 0)
-                                            <span class="product-card__badge">Nuevo</span>
+                                            <span class="product-card__badge product-card__badge--warning">¡Últimos!</span>
                                         @elseif($product->created_at->diffInDays(now()) <= 7)
                                             <span class="product-card__badge">Nuevo</span>
                                         @endif
@@ -111,9 +108,13 @@
                                         <p class="product-card__desc">
                                             {{ Str::limit($product->description, 60) ?? 'Producto profesional de alta calidad.' }}
                                         </p>
-                                        <div class="product-card__footer">
-                                            <span class="product-card__price">{{ $product->formatted_price }}</span>
 
+                                        {{-- Footer con precio y botón --}}
+                                        <div class="product-card__footer">
+                                            {{-- Precio formateado --}}
+                                            <span class="product-card__price">${{ number_format($product->price, 2) }}</span>
+
+                                            {{-- Botón de agregar al carrito --}}
                                             @if($product->stock > 0)
                                                 <button type="button"
                                                         class="product-card__btn add-to-cart-btn"
@@ -124,9 +125,8 @@
                                                 </button>
                                             @else
                                                 <button type="button"
-                                                        class="product-card__btn"
+                                                        class="product-card__btn product-card__btn--disabled"
                                                         disabled
-                                                        style="opacity: 0.5; cursor: not-allowed;"
                                                         aria-label="Producto agotado">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -143,37 +143,9 @@
             @endforeach
         @endif
 
-        {{-- Información adicional sobre productos --}}
-        {{-- @if($categories->isNotEmpty()) --}}
-            {{-- <div class="info-cards" style="margin-top: 60px;">
-                <div class="info-card">
-                    <div class="info-card__icon">🚚</div>
-                    <h3>Recoge en Salón</h3>
-                    <p>Aparta tus productos y recógelos cuando asistas a tu cita.</p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-card__icon">✨</div>
-                    <h3>Calidad Profesional</h3>
-                    <p>Los mismos productos que usamos para consentir a nuestros clientes.</p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-card__icon">💳</div>
-                    <h3>Pago Flexible</h3>
-                    <p>Aparta con anticipación y paga al recoger en el salón.</p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-card__icon">🎁</div>
-                    <h3>Asesoría Incluida</h3>
-                    <p>Te ayudamos a elegir los productos ideales para tu tipo de cabello.</p>
-                </div>
-            </div> --}}
-        {{-- @endif --}}
+        
 
       </div>
     </section>
-
 
 @endsection

@@ -1094,6 +1094,26 @@ ul, ol {
   height: 20px;
 }
 
+/* Badge variantes para productos */
+.product-card__badge--soldout {
+  background: #dc2626;
+}
+
+.product-card__badge--warning {
+  background: #f59e0b;
+}
+
+/* Botón deshabilitado (producto agotado) */
+.product-card__btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.product-card__btn--disabled:hover {
+  transform: none;
+  background: var(--accent);
+}
 /* ─────────────────────────────────────────────────────────────────────────────
    10. GALLERY SECTION
    ───────────────────────────────────────────────────────────────────────────── */
@@ -2503,3 +2523,6 @@ ul, ol {
     grid-row: span 1;
   }
 }
+
+
+
