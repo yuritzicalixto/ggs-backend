@@ -10,8 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
+        // Misma lógica: guardar URL de origen
+        if (!$request->session()->has('url.intended')) {
+            $previousUrl = url()->previous();
+            if (
+                $previousUrl !== route('login') &&
+                $previousUrl !== route('register')
+            ) {
+                $request->session()->put('url.intended', $previousUrl);
+            }
+        }
+
         return view('auth.register');
     }
 
@@ -20,7 +31,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|regex:/^[0-9]{10,15}$/', // Validación del Telefono
+            'phone' => 'required|string|regex:/^[0-9]{10,15}$/',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
@@ -31,9 +42,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Asignar el rol 'client' por defecto
+        $user->assignRole('client');
+
         Auth::login($user);
 
-        return redirect('/dashboard'); // Redirigir a la ruta que desees
+        // Redirigir al frontend (o a la URL de origen si existe)
+        return redirect()->intended(route('sitio.index'));
     }
 }
-
