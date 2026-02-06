@@ -42,13 +42,13 @@ class DatabaseSeeder extends Seeder
         $stylist->syncRoles(['stylist']);
 
         // Client de prueba
-        User::factory()->create([
+        $client = User::factory()->create([
             'name' => 'Cliente Demo',
             'email' => 'client@gmail.com',
             'phone' => '2711000258',
             'password' => bcrypt('12345678')
         ]);
-
+        $client->syncRoles(['client']);
 
         // $this->call([
         //     PermissionSeeder::class,
