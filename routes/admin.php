@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\StylistController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,6 @@ Route::resource('products', ProductController::class)
 
 Route::resource('services', ServiceController::class)
 ->middleware('can:services.manage');
+
+Route::resource('stylists', StylistController::class)
+->middleware('can:stylists.manage');

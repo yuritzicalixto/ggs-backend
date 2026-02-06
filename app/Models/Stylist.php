@@ -1,5 +1,5 @@
 <?php
-// app/Models/Stylist.php
+
 
 namespace App\Models;
 
@@ -43,8 +43,8 @@ class Stylist extends Model
      */
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class)
-                    ->withTimestamps();
+        return $this->belongsToMany(Service::class, 'stylist_service')
+                ->withTimestamps();
     }
 
     /**

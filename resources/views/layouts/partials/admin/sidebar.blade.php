@@ -35,12 +35,13 @@
         'active' => request()->routeIs('admin.products.*'),
         'can' => ['products.manage'] //
     ],
-    // [
-    //     'icon' => 'fa-solid fa-users-gear',
-    //     'name' => 'Estilistas',
-    //     'route' => route ('admin.dashboard'),
-    //     'active' => request()->routeIs('admin.dashboard')
-    // ],
+    [
+        'icon' => 'fa-solid fa-users-gear',
+        'name' => 'Estilistas',
+        'route' => route ('admin.stylists.index'),
+        'active' => request()->routeIs('admin.stylists.*'),
+        'can' => ['stylists.manage']
+    ],
     // [
     //     'icon' => 'fa-solid fa-cart-flatbed',
     //     'name' => 'Apartados',
