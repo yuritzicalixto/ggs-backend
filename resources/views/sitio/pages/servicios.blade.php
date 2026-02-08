@@ -76,7 +76,22 @@
                     {{-- Footer: Precio + Botón --}}
                     <div class="service-full-card__footer">
                       <span class="price">Desde <strong>{{ $service->price_formatted }}</strong></span>
-                      <button type="button" class="btn btn--primary btn--sm" onclick="openLogin()">Reservar</button>
+                      {{-- <button type="button" class="btn btn--primary btn--sm" onclick="openLogin()">Reservar</button> --}}
+                      {{-- AUTENTICACIÓN --}}
+                        @auth
+                          {{-- Usuario autenticado: lo lleva directo a agendar con el servicio preseleccionado --}}
+                          <a href="{{ route('client.appointments.create', ['service_id' => $service->id]) }}"
+                             class="btn btn--primary btn--sm">
+                            Agendar
+                          </a>
+                        @else
+                          {{-- Usuario NO autenticado: lo manda a login, guardando a dónde quería ir --}}
+                          <a href="{{ route('login', ['redirect_to' => route('client.appointments.create', ['service_id' => $service->id])]) }}"
+                             class="btn btn--primary btn--sm">
+                            Agendar
+                          </a>
+                        @endauth
+                      {{-- AUTENTICACIÓN --}}
                     </div>
                   </div>
                 </article>

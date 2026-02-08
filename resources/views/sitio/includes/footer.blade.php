@@ -49,7 +49,7 @@
 
       <!-- Bottom -->
       <div class="footer__bottom">
-        <p class="footer__copy">© 2025 Guillermo Gutiérrez Salón. Todos los derechos reservados.</p>
+        <p class="footer__copy">© 2026 Guillermo Gutiérrez Salón. Todos los derechos reservados.</p>
 
         <div class="footer__socials">
           <a href="https://instagram.com/" target="_blank" class="footer__social" aria-label="Instagram">

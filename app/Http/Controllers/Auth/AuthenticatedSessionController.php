@@ -10,12 +10,16 @@ class AuthenticatedSessionController extends Controller
 {
     public function create(Request $request)
     {
-        // Guardar la URL de donde viene el usuario para redirigirlo después del login.
-        // Solo guardamos si es una URL interna (no la propia página de login).
-        if (!$request->session()->has('url.intended')) {
+        // PRIORIDAD 1: Si viene un redirect_to explícito (desde el botón "Agendar" en servicios),
+        // lo guardamos como intended. Esto tiene prioridad sobre todo lo demás.
+        if ($request->has('redirect_to')) {
+            $request->session()->put('url.intended', $request->redirect_to);
+
+        // PRIORIDAD 2: Si no hay redirect_to ni intended previo,
+        // guardamos la URL anterior (comportamiento original).
+        } elseif (!$request->session()->has('url.intended')) {
             $previousUrl = url()->previous();
 
-            // Evitamos guardar la URL de login/register como destino
             if (
                 $previousUrl !== route('login') &&
                 $previousUrl !== route('register')
@@ -37,8 +41,10 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            // redirect()->intended() busca la URL guardada en 'url.intended'.
-            // Si no hay ninguna, usa el fallback (la página principal del sitio).
+            // redirect()->intended() busca 'url.intended' en la sesión.
+            // Si el usuario venía de "Agendar", lo lleva al formulario de cita.
+            // Si venía de otra página, lo lleva allá.
+            // Si no hay nada guardado, lo lleva al frontend principal.
             return redirect()->intended(route('sitio.index'));
         }
 
@@ -47,15 +53,13 @@ class AuthenticatedSessionController extends Controller
         ])->withInput();
     }
 
-
     public function destroy(Request $request)
-{
-    Auth::guard('web')->logout();
+    {
+        Auth::guard('web')->logout();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    return redirect()->route('sitio.index');
-}
-
+        return redirect()->route('sitio.index');
+    }
 }
