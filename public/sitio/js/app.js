@@ -55,12 +55,19 @@ function saveCart() {
 }
 
 // Add item to cart
+// Add item to cart (máximo 5 productos diferentes)
 function addToCart(product) {
   const existingItem = cart.find(item => item.id === product.id);
 
   if (existingItem) {
+    // Si ya está en el carrito, solo aumenta cantidad
     existingItem.quantity += 1;
   } else {
+    // Si es un producto nuevo, verificar el límite de 5
+    if (cart.length >= 5) {
+      showLimitToast();
+      return; // No agregar, ya alcanzó el límite
+    }
     cart.push({ ...product, quantity: 1 });
   }
 
@@ -182,6 +189,28 @@ function showAddedToast(productName) {
   }, 2500);
 }
 
+// Show limit reached toast
+function showLimitToast() {
+  const existingToast = document.querySelector('.toast');
+  if (existingToast) existingToast.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'toast toast--warning';
+  toast.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+    </svg>
+    <span>Máximo 5 productos diferentes en el carrito</span>
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 // Add to cart buttons
 document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
@@ -207,11 +236,19 @@ clearCartBtn?.addEventListener('click', () => {
   }
 });
 
-// Checkout button - redirect to login
+// Checkout button - Reservar productos
 checkoutBtn?.addEventListener('click', () => {
-  if (cart.length > 0) {
-    closeCart();
-    openLogin();
+  if (cart.length === 0) return;
+
+  closeCart();
+
+  // window.isAuthenticated lo inyecta Blade (ver Paso 3)
+  if (window.isAuthenticated) {
+    // Usuario logueado: ir directo a crear reserva
+    window.location.href = window.reservationCreateUrl;
+  } else {
+    // Usuario NO logueado: ir a login con redirect_to
+    window.location.href = window.loginUrl + '?redirect_to=' + encodeURIComponent(window.reservationCreateUrl);
   }
 });
 

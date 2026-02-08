@@ -107,8 +107,8 @@
     [
         'icon' => 'fa-solid fa-cart-shopping',
         'name' => 'Carrito',
-        'route' => route ('client.cart.index'),
-        'active' => request()->routeIs('client.cart.*'),
+        'route' => route ('client.carts.index'),
+        'active' => request()->routeIs('client.carts.*'),
         'can' => ['client.cart.use']
     ],
 ];

@@ -58,7 +58,27 @@
   <!-- ═══════════════════════════════════════════════════════════════════════
        JAVASCRIPT
        ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- JavaScript -->
+    {{-- Variables globales para JavaScript --}}
+    {{-- <script>
+      window.isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+      window.loginUrl = "{{ route('login') }}";
+      @auth
+        window.reservationCreateUrl = "{{ route('client.reservations.create') }}";
+      @else
+        window.reservationCreateUrl = "{{ route('client.reservations.create') }}";
+      @endauth
+    </script> --}}
+    {{-- <script>
+        window.isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+        window.loginUrl = "{{ route('login') }}";
+        window.reservationCreateUrl = "/client/apartados/crear";
+    </script> --}}
+    <script>
+        window.isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+        window.loginUrl = "{{ route('login') }}";
+        window.reservationCreateUrl = "/client/reservations/create";
+    </script>
+       <!-- JavaScript -->
   @include('sitio.includes.scripts')
 </body>
 </html>
