@@ -1,3 +1,5 @@
+{{-- resources/views/stylist/appointments/index.blade.php --}}
+
 <x-admin-layout :breadcrumbs="[
     [
         'name'=> 'Dashboard',
@@ -8,195 +10,263 @@
     ],
 ]">
 
-<!-- Contenedor principal (solo visual, sin Blade, sin condiciones) -->
-<div class="bg-white dark:bg-gray-800 rounded-lg shadow">
-  <!-- Header -->
-  <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-    <div class="flex items-center justify-between">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-        Mis Citas
-      </h2>
+<div class="max-w-5xl mx-auto py-8 px-4">
 
-      <a href="#"
-         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-        <i class="fa-solid fa-calendar-day mr-2"></i>
-        Ver Hoy
-      </a>
+    {{-- Encabezado --}}
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Mis Citas</h1>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Revisa tu agenda y las citas que tienes programadas.</p>
     </div>
-  </div>
 
-  <!-- Tabla de Citas -->
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="px-6 py-3">Fecha</th>
-          <th scope="col" class="px-6 py-3">Hora</th>
-          <th scope="col" class="px-6 py-3">Cliente</th>
-          <th scope="col" class="px-6 py-3">Servicio</th>
-          <th scope="col" class="px-6 py-3">Estado</th>
-          <th scope="col" class="px-6 py-3">Acciones</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <!-- Row 1 -->
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">28/01/2026</td>
-          <td class="px-6 py-4">10:00 - 11:00</td>
-          <td class="px-6 py-4">
-            <div>
-              <p class="font-medium text-gray-900 dark:text-white">Ana López</p>
-              <p class="text-xs text-gray-500">+52 271 000 0000</p>
-            </div>
-          </td>
-          <td class="px-6 py-4">Corte de cabello</td>
-          <td class="px-6 py-4">
-            <span class="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded">
-              Pendiente
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2">
-              <a href="#" class="text-blue-600 hover:text-blue-800" title="Ver detalle">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-              <button type="button" class="text-green-600 hover:text-green-800" title="Marcar completada">
-                <i class="fa-solid fa-check"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Row 2 -->
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">29/01/2026</td>
-          <td class="px-6 py-4">12:00 - 13:00</td>
-          <td class="px-6 py-4">
-            <div>
-              <p class="font-medium text-gray-900 dark:text-white">Karla Méndez</p>
-              <p class="text-xs text-gray-500">+52 271 111 1111</p>
-            </div>
-          </td>
-          <td class="px-6 py-4">Tinte</td>
-          <td class="px-6 py-4">
-            <span class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded">
-              Confirmada
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2">
-              <a href="#" class="text-blue-600 hover:text-blue-800" title="Ver detalle">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-              <button type="button" class="text-green-600 hover:text-green-800" title="Marcar completada">
-                <i class="fa-solid fa-check"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Row 3 -->
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">30/01/2026</td>
-          <td class="px-6 py-4">16:00 - 17:00</td>
-          <td class="px-6 py-4">
-            <div>
-              <p class="font-medium text-gray-900 dark:text-white">María Hernández</p>
-              <p class="text-xs text-gray-500">+52 271 222 2222</p>
-            </div>
-          </td>
-          <td class="px-6 py-4">Uñas</td>
-          <td class="px-6 py-4">
-            <span class="px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 rounded">
-              Completada
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2">
-              <a href="#" class="text-blue-600 hover:text-blue-800" title="Ver detalle">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Row 4 -->
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">31/01/2026</td>
-          <td class="px-6 py-4">09:00 - 10:00</td>
-          <td class="px-6 py-4">
-            <div>
-              <p class="font-medium text-gray-900 dark:text-white">Sofía Ruiz</p>
-              <p class="text-xs text-gray-500">+52 271 333 3333</p>
-            </div>
-          </td>
-          <td class="px-6 py-4">Peinado</td>
-          <td class="px-6 py-4">
-            <span class="px-2 py-1 text-xs font-semibold bg-red-100 text-red-800 rounded">
-              Cancelada
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2">
-              <a href="#" class="text-blue-600 hover:text-blue-800" title="Ver detalle">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Empty state (si quieres mostrar "sin citas", usa SOLO este bloque y quita las filas) -->
-        <!--
-        <tr>
-          <td colspan="6" class="px-6 py-12 text-center text-gray-500">
-            <i class="fa-solid fa-calendar-xmark text-4xl mb-4 block"></i>
-            No tienes citas registradas.
-          </td>
-        </tr>
-        -->
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Paginación (solo visual) -->
-  <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-        Mostrando <span class="font-medium text-gray-900 dark:text-white">1</span> a
-        <span class="font-medium text-gray-900 dark:text-white">4</span> de
-        <span class="font-medium text-gray-900 dark:text-white">12</span> resultados
-      </p>
-
-      <nav class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Paginación">
-        <a href="#"
-           class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-l-md hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
-          Anterior
-        </a>
-
-        <a href="#"
-           class="px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
-          1
-        </a>
-
-        <a href="#"
-           class="px-3 py-2 text-sm font-semibold text-white bg-blue-600 border border-blue-600 hover:bg-blue-700">
-          2
-        </a>
-
-        <a href="#"
-           class="px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700">
-          3
-        </a>
-
-        <a href="#"
-           class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-r-md hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
-          Siguiente
-        </a>
-      </nav>
+    {{-- Estadísticas rápidas --}}
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        {{-- Total --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+            <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">Total</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">{{ $stats['total'] }}</p>
+        </div>
+        {{-- Pendientes --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+            <p class="text-xs font-semibold text-amber-500 uppercase tracking-wide">Pendientes</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">{{ $stats['pending'] }}</p>
+        </div>
+        {{-- Confirmadas --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+            <p class="text-xs font-semibold text-blue-500 uppercase tracking-wide">Confirmadas</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">{{ $stats['confirmed'] }}</p>
+        </div>
+        {{-- Completadas --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+            <p class="text-xs font-semibold text-green-500 uppercase tracking-wide">Completadas</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-white mt-1">{{ $stats['completed'] }}</p>
+        </div>
     </div>
-  </div>
+
+    {{-- Controles de navegación: vista + período --}}
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 gap-4">
+
+            {{-- Selector de vista (Día / Semana / Mes) --}}
+            <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+                @php
+                    $views = [
+                        'day'   => 'Día',
+                        'week'  => 'Semana',
+                        'month' => 'Mes',
+                    ];
+                @endphp
+                @foreach($views as $key => $label)
+                    <a href="{{ route('stylist.appointments.index', ['view' => $key, 'date' => $referenceDate->format('Y-m-d')]) }}"
+                       class="px-4 py-2 text-xs font-medium transition-colors
+                              {{ $currentView === $key
+                                  ? 'bg-indigo-600 text-white'
+                                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
+                        {{ $label }}
+                    </a>
+                @endforeach
+            </div>
+
+            {{-- Navegación de período (← período →) --}}
+            <div class="flex items-center gap-3">
+                @php
+                    // Calcular fecha anterior y siguiente según la vista
+                    $prevDate = match($currentView) {
+                        'day'   => $referenceDate->copy()->subDay(),
+                        'month' => $referenceDate->copy()->subMonth(),
+                        default => $referenceDate->copy()->subWeek(),
+                    };
+                    $nextDate = match($currentView) {
+                        'day'   => $referenceDate->copy()->addDay(),
+                        'month' => $referenceDate->copy()->addMonth(),
+                        default => $referenceDate->copy()->addWeek(),
+                    };
+                @endphp
+
+                <a href="{{ route('stylist.appointments.index', ['view' => $currentView, 'date' => $prevDate->format('Y-m-d')]) }}"
+                   class="p-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </a>
+
+                <span class="text-sm font-semibold text-gray-800 dark:text-white min-w-[200px] text-center">
+                    {{ $periodLabel }}
+                </span>
+
+                <a href="{{ route('stylist.appointments.index', ['view' => $currentView, 'date' => $nextDate->format('Y-m-d')]) }}"
+                   class="p-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </a>
+
+                {{-- Botón "Hoy" --}}
+                <a href="{{ route('stylist.appointments.index', ['view' => $currentView, 'date' => today()->format('Y-m-d')]) }}"
+                   class="px-3 py-1.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                    Hoy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {{-- ======================================= --}}
+    {{-- CONTENIDO SEGÚN LA VISTA                --}}
+    {{-- ======================================= --}}
+
+    @if($appointments->isEmpty())
+        {{-- Estado vacío --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col items-center justify-center py-16 px-6">
+                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa-regular fa-calendar-check text-2xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">Sin citas en este período</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">No tienes citas programadas para {{ mb_strtolower($views[$currentView]) }}.</p>
+            </div>
+        </div>
+
+    @elseif($currentView === 'day')
+        {{-- ============================= --}}
+        {{-- VISTA DÍA — Lista cronológica --}}
+        {{-- ============================= --}}
+        <div class="space-y-3">
+            @foreach($appointments as $appointment)
+                @include('stylist.appointments._appointment-card', ['appointment' => $appointment])
+            @endforeach
+        </div>
+
+    @elseif($currentView === 'week')
+        {{-- ============================= --}}
+        {{-- VISTA SEMANA — Agrupada por día --}}
+        {{-- ============================= --}}
+        <div class="space-y-6">
+            @foreach($weekDays as $day)
+                @php
+                    $dayKey = $day->format('Y-m-d');
+                    $dayAppointments = $appointmentsByDate->get($dayKey, collect());
+                    $isToday = $day->isToday();
+                @endphp
+
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden {{ $isToday ? 'ring-2 ring-indigo-500/30' : '' }}">
+                    {{-- Cabecera del día --}}
+                    <div class="flex items-center justify-between px-5 py-3 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-3">
+                            @if($isToday)
+                                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                            @endif
+                            <span class="text-sm font-semibold text-gray-800 dark:text-white">
+                                {{ $day->translatedFormat('l d') }}
+                            </span>
+                        </div>
+                        <span class="text-xs text-gray-400 dark:text-gray-500">
+                            {{ $dayAppointments->count() }} {{ $dayAppointments->count() === 1 ? 'cita' : 'citas' }}
+                        </span>
+                    </div>
+
+                    {{-- Citas del día --}}
+                    @if($dayAppointments->isEmpty())
+                        <div class="px-5 py-4 text-sm text-gray-400 dark:text-gray-500 text-center">
+                            Sin citas
+                        </div>
+                    @else
+                        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                            @foreach($dayAppointments as $appointment)
+                                <div class="flex items-center gap-4 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                                    {{-- Hora --}}
+                                    <div class="flex-shrink-0 w-20 text-right">
+                                        <p class="text-sm font-mono font-semibold text-gray-800 dark:text-white">
+                                            {{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }}
+                                        </p>
+                                    </div>
+
+                                    {{-- Barra de color --}}
+                                    <div class="w-1 self-stretch rounded-full" style="background-color: {{ $appointment->status_color }};"></div>
+
+                                    {{-- Info --}}
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-semibold text-gray-800 dark:text-white truncate">
+                                            {{ $appointment->service->name }}
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ $appointment->client->name }} · {{ $appointment->time_range }}
+                                        </p>
+                                    </div>
+
+                                    {{-- Estado --}}
+                                    @php
+                                        $statusLabels = [
+                                            'pending'   => 'Pendiente',
+                                            'confirmed' => 'Confirmada',
+                                            'completed' => 'Completada',
+                                            'cancelled' => 'Cancelada',
+                                            'no_show'   => 'No asistió',
+                                        ];
+                                    @endphp
+                                    <span class="flex-shrink-0 px-2.5 py-1 text-xs font-medium rounded-full"
+                                          style="background: {{ $appointment->status_color }}15; color: {{ $appointment->status_color }};">
+                                        {{ $statusLabels[$appointment->status] ?? ucfirst($appointment->status) }}
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+
+    @else
+        {{-- ============================= --}}
+        {{-- VISTA MES — Lista completa    --}}
+        {{-- ============================= --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                @php $lastDate = ''; @endphp
+                @foreach($appointments as $appointment)
+                    @php $currentDate = $appointment->date->format('Y-m-d'); @endphp
+
+                    {{-- Separador de fecha cuando cambia el día --}}
+                    @if($currentDate !== $lastDate)
+                        <div class="px-5 py-2 bg-gray-50 dark:bg-gray-700/50">
+                            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                                {{ $appointment->date->translatedFormat('l, d \d\e F') }}
+                                @if($appointment->date->isToday())
+                                    <span class="ml-2 text-indigo-600 dark:text-indigo-400">(Hoy)</span>
+                                @endif
+                            </p>
+                        </div>
+                        @php $lastDate = $currentDate; @endphp
+                    @endif
+
+                    <div class="flex items-center gap-4 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                        <div class="flex-shrink-0 w-20 text-right">
+                            <p class="text-sm font-mono font-semibold text-gray-800 dark:text-white">
+                                {{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }}
+                            </p>
+                        </div>
+                        <div class="w-1 self-stretch rounded-full" style="background-color: {{ $appointment->status_color }};"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-gray-800 dark:text-white truncate">
+                                {{ $appointment->service->name }}
+                            </p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                {{ $appointment->client->name }} · {{ $appointment->time_range }}
+                            </p>
+                        </div>
+                        @php
+                            $statusLabels = [
+                                'pending'   => 'Pendiente',
+                                'confirmed' => 'Confirmada',
+                                'completed' => 'Completada',
+                                'cancelled' => 'Cancelada',
+                                'no_show'   => 'No asistió',
+                            ];
+                        @endphp
+                        <span class="flex-shrink-0 px-2.5 py-1 text-xs font-medium rounded-full"
+                              style="background: {{ $appointment->status_color }}15; color: {{ $appointment->status_color }};">
+                            {{ $statusLabels[$appointment->status] ?? ucfirst($appointment->status) }}
+                        </span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
 </div>
-
 
 </x-admin-layout>

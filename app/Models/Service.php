@@ -41,7 +41,7 @@ class Service extends Model
 
     public function stylists(): BelongsToMany
     {
-        return $this->belongsToMany(Stylist::class)
+        return $this->belongsToMany(Stylist::class, 'stylist_service')
                     ->withTimestamps();
     }
 

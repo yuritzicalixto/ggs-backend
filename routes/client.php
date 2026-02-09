@@ -1,4 +1,5 @@
 <?php
+// routes/client.php
 
 use App\Http\Controllers\Client\AppointmentController;
 use App\Http\Controllers\Client\ReservationController;
@@ -13,28 +14,29 @@ Route::get('/', function () {
 
 
 
+// =====================================================
 // CITAS
-Route::resource('appointments', App\Http\Controllers\Client\AppointmentController::class)
-->middleware('can:client.appointments.create');
+// =====================================================
 
+// AJAX endpoints — DEBEN ir ANTES del resource para que no colisionen con {appointment}
+Route::get('appointments/stylists-by-service/{service}', [AppointmentController::class, 'stylistsByService'])
+    ->middleware('can:client.appointments.create')
+    ->name('appointments.stylists-by-service');
+
+Route::get('appointments/available-slots', [AppointmentController::class, 'availableSlots'])
+    ->middleware('can:client.appointments.create')
+    ->name('appointments.available-slots');
+
+// Resource CRUD (index, create, store, show, edit, update, destroy)
+Route::resource('appointments', AppointmentController::class)
+    ->middleware('can:client.appointments.create');
 
 
 // CARRITO
-Route::resource('carts', App\Http\Controllers\Client\CartController::class)
-->middleware('can:client.cart.use');
-
-// Route::prefix('carrito')->middleware('can:client.cart.use')->name('cart.')->group(function () {
-//     Route::get('/', [CartController::class, 'index'])->name('index');
-
-// });
+Route::resource('carts', CartController::class)
+    ->middleware('can:client.cart.use');
 
 
 // APARTADOS
-Route::resource('reservations', App\Http\Controllers\Client\ReservationController::class)
-->middleware('can:client.reservations.view');
-// Route::prefix('apartados')->middleware('can:client.reservations.view')->name('reservations.')->group(function () {
-//     Route::get('/', [ReservationController::class, 'index'])->name('index');
-//     Route::get('/', [ReservationController::class, 'index'])->name('index');
-//     Route::get('/crear', [ReservationController::class, 'create'])->name('create');
-//     Route::post('/', [ReservationController::class, 'store'])->name('store');
-// });
+Route::resource('reservations', ReservationController::class)
+    ->middleware('can:client.reservations.view');
