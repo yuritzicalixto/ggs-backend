@@ -22,7 +22,7 @@
 
           <!-- Actions -->
           <div class="hero__actions">
-            <button type="button" id="heroBookingBtn" class="btn btn--primary"> <a href="{{ route('login') }}">Agendar Cita</a></button>
+            <button type="button" id="heroBookingBtn" class="btn btn--primary"> <a href="{{ route('sitio.servicios')}}">Agendar Cita</a></button>
             <a href="{{ route('sitio.servicios')}}" class="btn btn--outline">Ver Servicios</a>
           </div>
 
@@ -157,8 +157,6 @@
               <div class="service-slide__content">
                 <h3 class="service-slide__title">Colorimetría</h3>
                 <p class="service-slide__text">Realizamos un diagnóstico completo de tu tono de piel para crear una propuesta de color personalizada. Utilizamos técnicas avanzadas para lograr resultados naturales y duraderos que realcen tu belleza única.</p>
-                <div class="service-slide__price">Desde <strong>$800</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
               </div>
             </article>
 
@@ -171,8 +169,6 @@
               <div class="service-slide__content">
                 <h3 class="service-slide__title">Cortes</h3>
                 <p class="service-slide__text">Líneas limpias y modernas adaptadas a tu estilo y tipo de rostro. Nuestros estilistas expertos crean looks únicos con técnicas de vanguardia y un acabado profesional impecable.</p>
-                <div class="service-slide__price">Desde <strong>$350</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
               </div>
             </article>
 
@@ -185,95 +181,8 @@
               <div class="service-slide__content">
                 <h3 class="service-slide__title">Tinturas</h3>
                 <p class="service-slide__text">Aplicación precisa con productos de alta calidad para tonos elegantes y consistentes. Desde coberturas de canas hasta transformaciones completas de color con resultados vibrantes.</p>
-                <div class="service-slide__price">Desde <strong>$650</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
               </div>
             </article>
-
-            <!-- Slide 4: Masajes Capilares -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=800&q=80" alt="Masajes capilares" loading="lazy">
-                <span class="service-slide__tag">Cuidado</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Masajes Capilares</h3>
-                <p class="service-slide__text">Una experiencia de relajación completa que estimula la circulación y promueve el crecimiento saludable del cabello. Incluye tratamientos nutritivos para textura, brillo y renovación.</p>
-                <div class="service-slide__price">Desde <strong>$400</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
-            <!-- Slide 5: Alisados y Queratina -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1520975958225-75c9f1a3f7a7?auto=format&fit=crop&w=800&q=80" alt="Alisados y queratina" loading="lazy">
-                <span class="service-slide__tag">Tratamiento</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Alisados y Queratina</h3>
-                <p class="service-slide__text">Transforma tu cabello con tratamientos de queratina profesional. Logra disciplina, suavidad y una apariencia natural y pulida que dura semanas sin dañar la fibra capilar.</p>
-                <div class="service-slide__price">Desde <strong>$1,200</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
-            <!-- Slide 6: Lifting de Pestañas -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1526040652367-ac003a0475fe?auto=format&fit=crop&w=800&q=80" alt="Lifting de pestañas" loading="lazy">
-                <span class="service-slide__tag">Estética</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Lifting de Pestañas</h3>
-                <p class="service-slide__text">Realza tu mirada con un lifting profesional que curva y define tus pestañas naturales. Efecto duradero de 6-8 semanas con un acabado sutil y elegante.</p>
-                <div class="service-slide__price">Desde <strong>$550</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
-            <!-- Slide 7: Manicure -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80" alt="Manicure profesional" loading="lazy">
-                <span class="service-slide__tag">Uñas</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Manicure</h3>
-                <p class="service-slide__text">Cuidado completo de manos con atención al detalle. Incluye limado, cutícula, hidratación y esmaltado con acabado prolijo. Disponible en tradicional, semipermanente o gel.</p>
-                <div class="service-slide__price">Desde <strong>$280</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
-            <!-- Slide 8: Pedicure -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=800&q=80" alt="Pedicure spa" loading="lazy">
-                <span class="service-slide__tag">Uñas</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Pedicure</h3>
-                <p class="service-slide__text">Servicio completo spa para pies que incluye baño relajante, exfoliación, tratamiento de callosidades, masaje y esmaltado perfecto para una presentación impecable.</p>
-                <div class="service-slide__price">Desde <strong>$350</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
-            <!-- Slide 9: Paquetes -->
-            <article class="service-slide">
-              <div class="service-slide__image">
-                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" alt="Paquetes especiales" loading="lazy">
-                <span class="service-slide__tag">Especial</span>
-              </div>
-              <div class="service-slide__content">
-                <h3 class="service-slide__title">Paquetes</h3>
-                <p class="service-slide__text">Combina múltiples servicios en una sola cita y obtén descuentos especiales. Ideal para eventos, quinceañeras, bodas o simplemente para consentirte con un día completo de belleza.</p>
-                <div class="service-slide__price">Desde <strong>$1,500</strong></div>
-                <button type="button" class="service-slide__btn" onclick="openBooking()">Reservar →</button>
-              </div>
-            </article>
-
           </div>
         </div>
 
@@ -309,14 +218,6 @@
             <div class="product-card__body">
               <h3 class="product-card__name">Shampoo Profesional</h3>
               <p class="product-card__desc">Limpieza profunda con ingredientes naturales</p>
-              <div class="product-card__footer">
-                <span class="product-card__price">$350</span>
-                <button type="button" class="product-card__btn add-to-cart-btn" aria-label="Agregar al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
             </div>
           </article>
 
@@ -327,14 +228,6 @@
             <div class="product-card__body">
               <h3 class="product-card__name">Mascarilla Nutritiva</h3>
               <p class="product-card__desc">Hidratación intensiva para cabello dañado</p>
-              <div class="product-card__footer">
-                <span class="product-card__price">$420</span>
-                <button type="button" class="product-card__btn add-to-cart-btn" aria-label="Agregar al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
             </div>
           </article>
 
@@ -346,32 +239,6 @@
             <div class="product-card__body">
               <h3 class="product-card__name">Tratamiento Capilar</h3>
               <p class="product-card__desc">Reparación profunda y brillo intenso</p>
-              <div class="product-card__footer">
-                <span class="product-card__price">$580</span>
-                <button type="button" class="product-card__btn add-to-cart-btn" aria-label="Agregar al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-id="4" data-name="Protector Térmico" data-price="290" data-image="https://images.unsplash.com/photo-1522338242042-2d1c917f7137?auto=format&fit=crop&w=400&q=80">
-            <div class="product-card__image">
-              <img src="https://images.unsplash.com/photo-1522338242042-2d1c917f7137?auto=format&fit=crop&w=400&q=80" alt="Protector Térmico">
-            </div>
-            <div class="product-card__body">
-              <h3 class="product-card__name">Protector Térmico</h3>
-              <p class="product-card__desc">Protege tu cabello del calor</p>
-              <div class="product-card__footer">
-                <span class="product-card__price">$290</span>
-                <button type="button" class="product-card__btn add-to-cart-btn" aria-label="Agregar al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
             </div>
           </article>
         </div>
@@ -411,14 +278,14 @@
           </figure>
 
           <figure class="gallery__item">
-            <img src="https://images.unsplash.com/photo-1520975958225-75c9f1a3f7a7?auto=format&fit=crop&w=800&q=80" alt="Alisado" loading="lazy">
+            <img src="https://images.pexels.com/photos/23349912/pexels-photo-23349912.jpeg?_gl=1*19lc00s*_ga*MTI4ODkzNzY2MC4xNjcxMjU0NDkz*_ga_8JE65Q40S6*czE3NzA3NjcwMTEkbzIzJGcxJHQxNzcwNzY3NTE5JGo0MiRsMCRoMA.." alt="Alisado" loading="lazy">
             <div class="gallery__overlay">
               <span class="gallery__caption">Alisado</span>
             </div>
           </figure>
 
           <figure class="gallery__item">
-            <img src="https://images.unsplash.com/photo-1527799820374-9f61f297199d?auto=format&fit=crop&w=800&q=80" alt="Peinado" loading="lazy">
+            <img src="https://images.pexels.com/photos/8467962/pexels-photo-8467962.jpeg?_gl=1*172g7tq*_ga*MTI4ODkzNzY2MC4xNjcxMjU0NDkz*_ga_8JE65Q40S6*czE3NzA3NjcwMTEkbzIzJGcxJHQxNzcwNzY3NDQ0JGoyOSRsMCRoMA.." alt="Peinado" loading="lazy">
             <div class="gallery__overlay">
               <span class="gallery__caption">Peinado</span>
             </div>
