@@ -9,20 +9,29 @@ use App\Models\ReservationItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
     /**
-     * Listado de apartados del cliente.
+     * Listado de apartados del cliente autenticado.
      */
     public function index()
     {
-        $reservations = Reservation::where('client_id', Auth::id())
+        // Apartados activos primero, luego el historial
+        $activeReservations = Reservation::where('client_id', Auth::id())
+            ->where('status', 'active')
             ->with('items.product')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('expiration_date', 'asc')
             ->get();
 
-        return view('client.reservations.index', compact('reservations'));
+        $historyReservations = Reservation::where('client_id', Auth::id())
+            ->whereIn('status', ['completed', 'cancelled', 'expired'])
+            ->with('items.product')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
+
+        return view('client.reservations.index', compact('activeReservations', 'historyReservations'));
     }
 
     /**
@@ -36,42 +45,62 @@ class ReservationController extends Controller
 
     /**
      * Guardar el apartado en la base de datos.
-     * Recibe los productos del carrito desde el formulario.
+     * Usa lockForUpdate() para evitar condiciones de carrera en el stock.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'items'              => 'required|array|min:1|max:5',
-            'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity'   => 'required|integer|min:1',
+            'items'                 => 'required|array|min:1|max:5',
+            'items.*.product_id'    => 'required|exists:products,id',
+            'items.*.quantity'      => 'required|integer|min:1|max:10',
+            'preferred_pickup_date' => 'nullable|date|after:today',
         ], [
-            'items.required' => 'Debes agregar al menos un producto.',
-            'items.max'      => 'Máximo 5 productos por apartado.',
+            'items.required'    => 'Debes agregar al menos un producto.',
+            'items.max'         => 'Máximo 5 productos por apartado.',
         ]);
 
-        // Usamos una transacción para que todo se guarde o nada
+        // Validar horario de negocio si se eligió fecha de recolección
+        if (!empty($validated['preferred_pickup_date'])) {
+            $pickupDate = Carbon::parse($validated['preferred_pickup_date']);
+
+            // Verificar que no sea domingo
+            if ($pickupDate->dayOfWeekIso === 7) {
+                return back()->withErrors(['preferred_pickup_date' => 'No abrimos los domingos. Elige otro día (Lunes a Sábado).'])->withInput();
+            }
+
+            // Verificar que esté dentro de los 7 días de vigencia
+            $maxDate = now()->addDays(7);
+            if ($pickupDate->gt($maxDate)) {
+                return back()->withErrors(['preferred_pickup_date' => 'La fecha debe ser dentro de los próximos 7 días.'])->withInput();
+            }
+        }
+
+        // Transacción con lock pesimista para proteger el stock
         $reservation = DB::transaction(function () use ($validated) {
 
-            // Crear el apartado (el número y fechas se generan automáticamente en el modelo)
             $reservation = Reservation::create([
-                'client_id' => Auth::id(),
-                'total'     => 0, // Se recalcula abajo
-                'status'    => 'active',
+                'client_id'             => Auth::id(),
+                'total'                 => 0,
+                'status'                => 'active',
+                'preferred_pickup_date' => $validated['preferred_pickup_date'] ?? null,
             ]);
 
             $total = 0;
 
             foreach ($validated['items'] as $itemData) {
-                // Obtener el producto y verificar stock
-                $product = Product::findOrFail($itemData['product_id']);
+                // ← lockForUpdate() evita que dos clientes compren el mismo stock simultáneamente
+                $product = Product::where('id', $itemData['product_id'])
+                    ->where('status', 'active')
+                    ->lockForUpdate()
+                    ->firstOrFail();
 
+                // Verificar stock suficiente
                 if ($product->stock < $itemData['quantity']) {
-                    throw new \Exception("Stock insuficiente para: {$product->name}");
+                    throw new \Exception("Stock insuficiente para '{$product->name}'. Disponible: {$product->stock}.");
                 }
 
                 $subtotal = $product->price * $itemData['quantity'];
 
-                // Crear el item del apartado
                 ReservationItem::create([
                     'reservation_id' => $reservation->id,
                     'product_id'     => $product->id,
@@ -80,34 +109,62 @@ class ReservationController extends Controller
                     'subtotal'       => $subtotal,
                 ]);
 
-                // Descontar stock del producto
+                // Descontar stock
                 $product->decrement('stock', $itemData['quantity']);
 
                 $total += $subtotal;
             }
 
-            // Actualizar el total del apartado
             $reservation->update(['total' => $total]);
 
             return $reservation;
         });
 
+        // Redirigir a la pantalla de éxito/confirmación del apartado
         return redirect()
-            ->route('client.reservations.index')
-            ->with('success', "¡Apartado #{$reservation->reservation_number} creado exitosamente! Tienes 7 días para recogerlo.");
+            ->route('client.reservations.show', $reservation)
+            ->with('success', "¡Apartado #{$reservation->reservation_number} creado exitosamente!");
     }
 
     /**
-     * Ver detalle de un apartado.
+     * Ver detalle de un apartado (también sirve como pantalla post-confirmación).
      */
     public function show(Reservation $reservation)
     {
+        // Asegurar que solo el dueño pueda verlo
         if ($reservation->client_id !== Auth::id()) {
             abort(403);
         }
 
         $reservation->load('items.product');
 
-        return view('client.reservations.show', compact('reservation'));
+        // Generar los días disponibles para recolección (si está activo)
+        $availablePickupDays = [];
+        if ($reservation->status === 'active') {
+            $availablePickupDays = $reservation->getAvailablePickupDays();
+        }
+
+        return view('client.reservations.show', compact('reservation', 'availablePickupDays'));
+    }
+
+    /**
+     * Cancelar un apartado (el cliente puede cancelar si está activo).
+     */
+    public function cancel(Reservation $reservation)
+    {
+        if ($reservation->client_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($reservation->status !== 'active') {
+            return back()->with('error', 'Este apartado ya no puede ser cancelado.');
+        }
+
+        // El método cancel() del modelo devuelve el stock automáticamente
+        $reservation->cancel();
+
+        return redirect()
+            ->route('client.reservations.index')
+            ->with('success', "Apartado #{$reservation->reservation_number} cancelado. El stock ha sido restaurado.");
     }
 }

@@ -36,6 +36,11 @@ Route::resource('appointments', AppointmentController::class)
 Route::resource('carts', CartController::class)
     ->middleware('can:client.cart.use');
 
+// APARTADOS — Acciones adicionales
+Route::post('reservations/{reservation}/cancel', [ReservationController::class, 'cancel'])
+    ->middleware('can:client.reservations.view')
+    ->name('reservations.cancel');
+
 
 // APARTADOS
 Route::resource('reservations', ReservationController::class)

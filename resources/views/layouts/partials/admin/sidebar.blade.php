@@ -42,12 +42,13 @@
         'active' => request()->routeIs('admin.stylists.*'),
         'can' => ['stylists.manage']
     ],
-    // [
-    //     'icon' => 'fa-solid fa-cart-flatbed',
-    //     'name' => 'Apartados',
-    //     'route' => route ('admin.dashboard'),
-    //     'active' => request()->routeIs('admin.dashboard')
-    // ],
+    [
+        'icon' => 'fa-solid fa-cart-flatbed',
+        'name' => 'Apartados',
+        'route' => route ('admin.reservations.index'),
+        'active' => request()->routeIs('admin.reservations.*'),
+        'can' => ['reservations.manage']
+    ],
     // [
     //     'icon' => 'fa-solid fa-bell',
     //     'name' => 'Notificaciones',
