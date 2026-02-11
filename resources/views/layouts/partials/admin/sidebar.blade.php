@@ -76,13 +76,13 @@
         'active' => request()->routeIs('stylist.appointments.*'),
         'can' => ['stylist.appointments.view']
     ],
-    [
-        'icon' => 'fa-solid fa-people-group',
-        'name' => 'Mis Clientes',
-        'route' => route ('stylist.clients.index'),
-        'active' => request()->routeIs('stylist.clients.*'),
-        'can' => ['stylist.clients.view']
-    ],
+    // [
+    //     'icon' => 'fa-solid fa-people-group',
+    //     'name' => 'Mis Clientes',
+    //     'route' => route ('stylist.clients.index'),
+    //     'active' => request()->routeIs('stylist.clients.*'),
+    //     'can' => ['stylist.clients.view']
+    // ],
 
     // CLIENTE
     [
@@ -105,13 +105,13 @@
         'active' => request()->routeIs('client.reservations.*'),
         'can' => ['client.reservations.view']
     ],
-    [
-        'icon' => 'fa-solid fa-cart-shopping',
-        'name' => 'Carrito',
-        'route' => route ('client.carts.index'),
-        'active' => request()->routeIs('client.carts.*'),
-        'can' => ['client.cart.use']
-    ],
+    // [
+    //     'icon' => 'fa-solid fa-cart-shopping',
+    //     'name' => 'Carrito',
+    //     'route' => route ('client.carts.index'),
+    //     'active' => request()->routeIs('client.carts.*'),
+    //     'can' => ['client.cart.use']
+    // ],
 ];
 @endphp
 
